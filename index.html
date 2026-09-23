@@ -106,22 +106,29 @@ h2{font-size:34px;font-weight:600;color:var(--ink)}
 /* ================== КОНВЕРТ ================== */
 #gate{
   position:fixed;inset:0;z-index:50;
-  background:var(--rose);
+  background:var(--rose);   /* только фон страницы, ничего за конвертом */
   display:flex;flex-direction:column;align-items:center;justify-content:center;
   gap:30px;padding:28px;
   transition:opacity .6s ease, visibility .6s;
 }
 #gate.opened{opacity:0;visibility:hidden;pointer-events:none}
 #envelope{
-  border:0;padding:0;background:none;cursor:pointer;
-  width:min(76vw,340px);
+  border:0;padding:0;margin:0;background:transparent;cursor:pointer;
+  width:min(76vw,340px);line-height:0;
+  -webkit-appearance:none;appearance:none;
+  box-shadow:none;border-radius:0;
   -webkit-tap-highlight-color:transparent;
   animation:pulse 3s ease-in-out infinite;
   transition:transform .55s ease, opacity .55s ease;
+  /* тень повторяет контур конверта, а не прямоугольник картинки */
+  filter:drop-shadow(0 18px 26px rgba(160,100,120,.28));
 }
-#envelope img{width:100%;border-radius:14px;box-shadow:0 26px 60px rgba(160,100,120,.28)}
+#envelope img{
+  width:100%;height:auto;display:block;
+  background:transparent;border:0;border-radius:0;box-shadow:none;
+}
 @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.035)}}
-#envelope:focus-visible{outline:1px solid var(--accent);outline-offset:16px;border-radius:16px}
+#envelope:focus-visible{outline:1px solid var(--accent);outline-offset:16px}
 #envelope.go{animation:none;transform:scale(1.12);opacity:0}
 .hint{
   font-size:15px;letter-spacing:3px;color:var(--muted);margin:0;
