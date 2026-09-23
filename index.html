@@ -81,28 +81,27 @@ const CONTENT = {
 
 <style>
 :root{
-  --rose:#FFF5F7;         /* верх фонового градиента */
-  --rose-bottom:#FBE3EA;  /* низ фонового градиента */
-  --rose-deep:rgba(232,165,184,.13);  /* лёгкое затемнение секций */
-  --grad-btn:linear-gradient(160deg,#E8A5B8 0%, #D98BA3 100%);
+  --base:#FBEFF3;         /* база под аурой */
+  --rose:#FBEFF3;
+  --rose-deep:transparent;/* секции больше не заливаются цветом — работает аура */
   --line:#E8A5B8;
+  --dark:#A63C6B;         /* база тёмной секции Dress Code */
   --accent:#A0526E;       /* тёмно-розовый: кнопка 2GIS */
   --accent-soft:#EFC5D2;  /* светло-розовый: кнопка «Чат» */
   --ink:#1A1115;          /* заголовки */
   --text:#3D2A30;         /* основной текст */
-  --muted:#7A5B65;        /* мелкие подписи */
+  --muted:#6B4E57;        /* мелкие подписи */
   --on-dark:#FFF5F7;      /* текст на тёмном фоне */
   --head:'Unbounded', system-ui, sans-serif;
   --body:'Manrope', system-ui, -apple-system, 'Segoe UI', sans-serif;
 }
 *{box-sizing:border-box}
-html{background:#FFF5F7}
+html{background:#FBEFF3}
 html,body{margin:0;padding:0}
 body{
   font-family:var(--body);
   font-weight:400;
-  background:linear-gradient(180deg,var(--rose) 0%, var(--rose-bottom) 100%);
-  background-attachment:fixed;
+  background:var(--base);
   color:var(--text);
   text-align:center;
   overflow-x:hidden;
@@ -114,10 +113,50 @@ img{display:block;max-width:100%}
 h1,h2{font-family:var(--head);letter-spacing:-0.01em;text-transform:uppercase;margin:0;color:var(--ink)}
 h2{font-size:26px;font-weight:600;line-height:1.25}
 
+
+/* ================== PINK AURA ================== */
+.aura{position:fixed;inset:0;z-index:-2;overflow:hidden;background:var(--base);pointer-events:none}
+.aura i{
+  position:absolute;display:block;border-radius:50%;
+  filter:blur(100px);
+  will-change:transform;
+}
+.aura .b1{width:70vw;height:70vw;top:-18vw;left:-14vw;background:#F4A6C6;opacity:.50}
+.aura .b2{width:58vw;height:58vw;top:16vh;right:-20vw;background:#F7C8D8;opacity:.75}
+.aura .b3{width:46vw;height:46vw;top:46vh;left:-12vw;background:#FFFFFF;opacity:.85;filter:blur(90px)}
+.aura .b4{width:52vw;height:52vw;bottom:-10vh;right:-10vw;background:#F4A6C6;opacity:.38}
+.aura .b5{width:34vw;height:34vw;bottom:18vh;left:22vw;background:#F6C9A8;opacity:.22;filter:blur(110px)}
+.aura .b6{width:40vw;height:40vw;top:6vh;left:30vw;background:#FFFFFF;opacity:.6;filter:blur(80px)}
+
+/* зерно поверх ауры */
+.grain{
+  position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.08;
+  background-image:url("data:image/svg+xml;utf8,\
+<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'>\
+<filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/>\
+<feColorMatrix type='saturate' values='0'/></filter>\
+<rect width='220' height='220' filter='url(%23n)'/></svg>");
+  background-size:220px 220px;
+}
+
+/* тёмная секция Dress Code — та же аура, но насыщеннее */
+section.dark{
+  margin:0;
+  background:
+    radial-gradient(60% 55% at 18% 20%, #E07BA0 0%, rgba(224,123,160,0) 70%),
+    radial-gradient(70% 60% at 85% 75%, #C9577F 0%, rgba(201,87,127,0) 72%),
+    radial-gradient(50% 50% at 60% 8%, rgba(246,201,168,.28) 0%, rgba(246,201,168,0) 70%),
+    var(--dark);
+  color:var(--on-dark);
+}
+section.dark h2{color:var(--on-dark)}
+section.dark .lines li,section.dark .sub{color:var(--on-dark)}
+section.dark + section::before,section.dark::before{display:none}
+
 /* ================== КОНВЕРТ ================== */
 #gate{
   position:fixed;inset:0;z-index:50;
-  background:linear-gradient(180deg,var(--rose) 0%, var(--rose-bottom) 100%);
+  background:transparent;
   display:flex;flex-direction:column;align-items:center;justify-content:center;
   gap:30px;padding:28px;
   transition:opacity .6s ease, visibility .6s;
@@ -159,9 +198,9 @@ h2{font-size:26px;font-weight:600;line-height:1.25}
 .music-bar{padding:20px 22px 0}
 #music-toggle{
   display:block;width:100%;max-width:430px;margin:0 auto;
+  background:rgba(255,255,255,.55);backdrop-filter:blur(6px);
   font-family:var(--body);font-weight:500;text-transform:uppercase;
   font-size:13px;letter-spacing:0.15em;color:var(--text);
-  background:var(--rose-deep);
   border:1px solid var(--accent-soft);border-radius:40px;
   padding:15px 24px;cursor:pointer;transition:.3s ease;
 }
@@ -179,7 +218,7 @@ section + section::before{
   background:linear-gradient(90deg,transparent 0%, var(--line) 50%, transparent 100%);
 }
 .wrap{max-width:430px;margin:0 auto}
-.tone{background:var(--rose-deep)}
+.tone{background:transparent}
 
 .reveal{opacity:0;transform:translateY(22px);transition:opacity .9s ease, transform .9s cubic-bezier(.22,1,.36,1)}
 .reveal.in{opacity:1;transform:none}
@@ -195,7 +234,7 @@ section + section::before{
 .hero-img{
   width:100%;aspect-ratio:16/9;object-fit:cover;
   margin-top:38px;border-radius:14px;
-  background:var(--rose-deep);
+  background:rgba(255,255,255,.4);
   box-shadow:0 26px 60px rgba(160,100,120,.25);
 }
 .occasion{margin:34px 0 0;font-size:14px;font-weight:500;text-transform:uppercase;letter-spacing:0.15em;color:var(--muted)}
@@ -204,13 +243,13 @@ section + section::before{
 /* ---- отсчёт ---- */
 .countdown{display:flex;flex-direction:column;gap:18px;margin-top:40px}
 .countdown div{
-  background:rgba(255,255,255,.5);border-radius:14px;padding:26px 20px;
-  box-shadow:0 16px 38px rgba(160,100,120,.16);
+  background:rgba(255,255,255,.62);border-radius:14px;padding:26px 20px;
+  box-shadow:0 14px 34px rgba(160,100,120,.14);
 }
 .countdown span{
   display:block;font-family:var(--head);font-weight:600;
   font-size:32px;font-variant-numeric:tabular-nums;
-  background:linear-gradient(180deg,#D98BA3 0%, #B5657F 100%);
+  background:linear-gradient(180deg,#E07BA0 0%, #B5457A 100%);
   -webkit-background-clip:text;background-clip:text;color:transparent;
 }
 .countdown p{margin:12px 0 0;font-size:12px;font-weight:500;text-transform:uppercase;letter-spacing:0.15em;color:var(--muted)}
@@ -233,7 +272,7 @@ section + section::before{
   font-size:13px;letter-spacing:0.15em;
   transition:.3s ease;
 }
-.btn-main{background:var(--grad-btn);color:var(--ink);box-shadow:0 14px 30px rgba(160,82,110,.22)}
+.btn-main{background:radial-gradient(120% 140% at 30% 20%, #F4A6C6 0%, #E07BA0 100%);color:var(--ink);box-shadow:0 14px 30px rgba(160,82,110,.20)}
 .btn-main:hover{filter:brightness(.96)}
 .btn-soft{background:var(--accent-soft);color:var(--ink);box-shadow:0 16px 34px rgba(160,82,110,.2)}
 .btn-soft:hover{transform:translateY(-3px)}
@@ -271,6 +310,9 @@ footer a:hover{color:var(--ink);border-color:var(--accent)}
 <noscript><style>#gate{display:none}main[hidden]{display:block!important}main{opacity:1!important}.reveal{opacity:1!important;transform:none!important}</style></noscript>
 </head>
 <body class="locked">
+
+<div class="aura" aria-hidden="true"><i class="b1"></i><i class="b2"></i><i class="b3"></i><i class="b4"></i><i class="b5"></i><i class="b6"></i></div>
+<div class="grain" aria-hidden="true"></div>
 
 <div id="gate">
   <div class="stage" id="stage">
@@ -325,7 +367,7 @@ footer a:hover{color:var(--ink);border-color:var(--accent)}
     </div>
   </section>
 
-  <section class="reveal">
+  <section class="dark reveal">
     <div class="wrap">
       <h2 id="dress-title"></h2>
       <ul class="lines" id="dress"></ul>
