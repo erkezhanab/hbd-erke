@@ -7,7 +7,7 @@
 <meta name="description" content="Приглашение на день рождения. 4 октября 2026, 18:00–21:00.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Allura&family=Playfair+Display:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
 
 <!-- ==========================================================
      ВСЁ, ЧТО МОЖНО МЕНЯТЬ — ТОЛЬКО В ЭТОМ БЛОКЕ
@@ -17,7 +17,7 @@
 const CONTENT = {
 
   /* --- Стартовый экран: картинка конверта --- */
-  envelope: "images/envelope.jpg",
+  envelope: "images/envelope.png",
   envelopeHint: "нажмите, чтобы открыть",
 
   /* --- Музыка --- */
@@ -130,15 +130,15 @@ h2{font-size:34px;font-weight:600;color:var(--ink)}
 @keyframes fadeHint{0%,100%{opacity:.5}50%{opacity:1}}
 
 /* ================== МУЗЫКА ================== */
+.music-bar{padding:20px 22px 0}
 #music-toggle{
-  position:fixed;top:16px;right:16px;z-index:40;display:none;
+  display:block;width:100%;max-width:430px;margin:0 auto;
   font-family:'Cormorant Garamond', Georgia, serif;
-  font-size:14px;letter-spacing:2px;color:var(--ink);
-  background:rgba(255,255,255,.7);backdrop-filter:blur(8px);
+  font-size:17px;letter-spacing:2px;color:var(--ink);
+  background:var(--rose-deep);
   border:1px solid var(--accent-soft);border-radius:40px;
-  padding:9px 20px;cursor:pointer;transition:.3s ease;
+  padding:15px 24px;cursor:pointer;transition:.3s ease;
 }
-#music-toggle.show{display:block}
 #music-toggle:hover{background:var(--accent-soft)}
 
 /* ================== СТРАНИЦА ================== */
@@ -155,7 +155,7 @@ section{padding:80px 22px}
 
 /* ---- шапка ---- */
 .hero{padding-top:110px;padding-bottom:80px}
-.hero h1{font-size:60px;font-weight:400;letter-spacing:3px;color:var(--ink)}
+.hero h1{font-family:'Allura',cursive;font-size:74px;font-weight:400;letter-spacing:2px;line-height:1.1;color:var(--ink)}
 .hero-img{
   width:100%;aspect-ratio:16/9;object-fit:cover;
   margin-top:38px;border-radius:14px;
@@ -166,16 +166,16 @@ section{padding:80px 22px}
 .date{margin:20px 0 0;font-size:18px;letter-spacing:2px;color:var(--ink)}
 
 /* ---- отсчёт ---- */
-.countdown{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:38px}
+.countdown{display:flex;flex-direction:column;gap:18px;margin-top:40px}
 .countdown div{
-  background:var(--rose);border-radius:12px;padding:20px 6px;
-  box-shadow:0 14px 34px rgba(160,100,120,.16);
+  background:var(--rose);border-radius:14px;padding:26px 20px;
+  box-shadow:0 16px 38px rgba(160,100,120,.16);
 }
 .countdown span{
   display:block;font-family:'Playfair Display',serif;font-weight:600;
-  font-size:30px;color:var(--accent);font-variant-numeric:tabular-nums;
+  font-size:34px;color:var(--accent);font-variant-numeric:tabular-nums;
 }
-.countdown p{margin:10px 0 0;font-size:12px;letter-spacing:1.5px;color:var(--muted)}
+.countdown p{margin:12px 0 0;font-size:15px;letter-spacing:3px;color:var(--muted)}
 .countdown-done{font-size:26px;letter-spacing:3px;color:var(--accent);margin:38px 0 0}
 
 /* ---- место ---- */
@@ -217,12 +217,12 @@ footer a:hover{color:var(--ink);border-color:var(--accent)}
 @media (max-width:480px){
   section{padding:64px 20px}
   .hero{padding-top:90px}
-  .hero h1{font-size:46px}
+  .hero h1{font-size:58px}
   h2{font-size:28px}
-  .countdown{gap:8px}
-  .countdown div{padding:16px 4px}
-  .countdown span{font-size:24px}
-  .countdown p{font-size:11px;letter-spacing:1px}
+  .countdown{gap:14px}
+  .countdown div{padding:22px 16px}
+  .countdown span{font-size:30px}
+  .countdown p{font-size:14px;letter-spacing:2px}
   .lines li,.sub{font-size:18px}
 }
 @media (prefers-reduced-motion:reduce){
@@ -237,9 +237,11 @@ footer a:hover{color:var(--ink);border-color:var(--accent)}
   <p class="hint" id="hint"></p>
 </div>
 
-<button id="music-toggle" type="button" aria-pressed="false"></button>
-
 <main id="page" hidden>
+
+  <div class="music-bar">
+    <button id="music-toggle" type="button" aria-pressed="false"></button>
+  </div>
 
   <section class="hero reveal">
     <div class="wrap">
@@ -417,7 +419,6 @@ footer a:hover{color:var(--ink);border-color:var(--accent)}
 
     play();                          /* запуск строго внутри клика */
     envelope.classList.add('go');
-    toggle.classList.add('show');
 
     setTimeout(function () {
       gate.classList.add('opened');
