@@ -29,7 +29,7 @@ const CONTENT = {
   /* --- Шапка --- */
   name: "Erkezhan",
   heroPhoto: "images/hero.jpg",     /* фото 16:9 */
-  occasion: "День рождения",
+  occasion: "День рождение",
   dateLine: "4 октября 2026 • 18:00–21:00",
 
   /* --- Обратный отсчёт --- */
@@ -41,7 +41,7 @@ const CONTENT = {
 
   /* --- Место проведения --- */
   placeTitle: "Место проведения",
-  placeName: "[НАЗВАНИЕ МЕСТА]",
+  placeName: "[Studiя 17, Astana]",
   /* фото места — идут друг под другом одним коллажем.
      Можно добавлять и убирать строки; ненайденные файлы просто не покажутся */
   placePhotos: [
@@ -81,28 +81,28 @@ const CONTENT = {
 
 <style>
 :root{
-  --base:#FFC3CF;         /* средний тон обоев — виден до загрузки картинок */
-  --rose:#FFC3CF;
-  --line:#E788A2;         /* цвет взят с IMG_8908 */
-  --accent:#C0687E;       /* самый насыщенный тон с IMG_8908 */
-  --accent-soft:#FFD5CA;  /* тёплый персиковый с IMG_8907 */
+  --base:#FBEFF3;         /* база под аурой */
+  --rose:#FBEFF3;
+  --rose-deep:transparent;/* секции больше не заливаются цветом — работает аура */
+  --line:#E8A5B8;
+  --dark:#A63C6B;         /* база тёмной секции Dress Code */
   --accent:#A0526E;       /* тёмно-розовый: кнопка 2GIS */
   --accent-soft:#EFC5D2;  /* светло-розовый: кнопка «Чат» */
   --ink:#1A1115;          /* заголовки */
-  --text:#2A1C21;         /* основной текст */
-  --muted:#4A3239;        /* мелкие подписи */
+  --text:#3D2A30;         /* основной текст */
+  --muted:#6B4E57;        /* мелкие подписи */
   --on-dark:#FFF5F7;      /* текст на тёмном фоне */
   --head:'Unbounded', system-ui, sans-serif;
   --body:'Manrope', system-ui, -apple-system, 'Segoe UI', sans-serif;
 }
 *{box-sizing:border-box}
-html{background:#FFC3CF}
+html{background:transparent}
 html,body{margin:0;padding:0}
 body{
   font-family:var(--body);
   font-weight:400;
   position:relative;
-  background:var(--base);
+  background:transparent;
   color:var(--text);
   text-align:center;
   overflow-x:hidden;
@@ -115,24 +115,24 @@ h1,h2{font-family:var(--head);letter-spacing:-0.01em;text-transform:uppercase;ma
 h2{font-size:26px;font-weight:600;line-height:1.25}
 
 
-/* ============ ФОН: ОБОИ IMG_8907 / IMG_8908 ============ */
-/* один слой на всю высоту документа, обе картинки перетекают друг в друга */
+/* ====== ФОН САЙТА: ОБОИ IMG_8907 / IMG_8908 ======
+   один слой на всю высоту документа: сверху 8907, ниже 8908,
+   стык растворён маской — шва не видно */
 .bg{
-  position:absolute;top:0;left:0;width:100%;height:100%;
-  z-index:-2;overflow:hidden;background:var(--base);pointer-events:none;
+  position:absolute;top:0;left:0;width:100%;height:100%;min-height:100svh;
+  z-index:-3;overflow:hidden;background:transparent;pointer-events:none;
 }
 .bg span{
   position:absolute;left:0;right:0;display:block;
   background-repeat:no-repeat;
   background-position:center;
-  background-size:cover;          /* пропорции не тянутся */
+  background-size:cover;            /* пропорции не тянутся */
 }
-/* верхняя половина */
 .bg .top{
   top:0;height:62%;
   background-image:url("images/IMG_8907.jpg");
 }
-/* нижняя половина: заходит на верхнюю и растворяется — шва не видно */
+/* нижняя заходит на верхнюю и плавно проявляется */
 .bg .bottom{
   top:38%;bottom:0;
   background-image:url("images/IMG_8908.jpg");
@@ -140,12 +140,32 @@ h2{font-size:26px;font-weight:600;line-height:1.25}
           mask-image:linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 26%);
 }
 
-/* стекло */
-.glass{
-  background:rgba(255,255,255,.35);
-  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
-  border:1px solid rgba(255,255,255,.55);
+/* ====== PINK AURA — только стартовый экран с конвертом ====== */
+.aura{position:fixed;inset:0;z-index:-2;overflow:hidden;background:var(--base);pointer-events:none}
+.aura i{
+  position:absolute;display:block;border-radius:50%;
+  filter:blur(100px);
+  will-change:transform;
 }
+.aura .b1{width:70vw;height:70vw;top:-18vw;left:-14vw;background:#F4A6C6;opacity:.50}
+.aura .b2{width:58vw;height:58vw;top:16vh;right:-20vw;background:#F7C8D8;opacity:.75}
+.aura .b3{width:46vw;height:46vw;top:46vh;left:-12vw;background:#FFFFFF;opacity:.85;filter:blur(90px)}
+.aura .b4{width:52vw;height:52vw;bottom:-10vh;right:-10vw;background:#F4A6C6;opacity:.38}
+.aura .b5{width:34vw;height:34vw;bottom:18vh;left:22vw;background:#F6C9A8;opacity:.22;filter:blur(110px)}
+.aura .b6{width:40vw;height:40vw;top:6vh;left:30vw;background:#FFFFFF;opacity:.6;filter:blur(80px)}
+
+/* зерно поверх ауры */
+.grain{
+  position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.08;
+  background-image:url("data:image/svg+xml;utf8,\
+<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'>\
+<filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/>\
+<feColorMatrix type='saturate' values='0'/></filter>\
+<rect width='220' height='220' filter='url(%23n)'/></svg>");
+  background-size:220px 220px;
+}
+
+/* секция Dress Code больше не заливается — под ней те же обои */
 
 /* ================== КОНВЕРТ ================== */
 #gate{
@@ -192,16 +212,17 @@ h2{font-size:26px;font-weight:600;line-height:1.25}
 .music-bar{padding:20px 22px 0}
 #music-toggle{
   display:block;width:100%;max-width:430px;margin:0 auto;
-  background:rgba(255,255,255,.35);
-  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  background:rgba(255,255,255,.55);backdrop-filter:blur(6px);
   font-family:var(--body);font-weight:500;text-transform:uppercase;
   font-size:13px;letter-spacing:0.15em;color:var(--text);
-  border:1px solid rgba(255,255,255,.55);border-radius:40px;
+  border:1px solid var(--accent-soft);border-radius:40px;
   padding:15px 24px;cursor:pointer;transition:.3s ease;
 }
-#music-toggle:hover{background:rgba(255,255,255,.5)}
+#music-toggle:hover{background:var(--accent-soft)}
 
 /* ================== СТРАНИЦА ================== */
+/* ничего не заливается — сквозь всё видны обои */
+main,.wrap,footer,.music-bar{background:transparent}
 main{opacity:0;transition:opacity .8s ease}
 main.visible{opacity:1}
 main[hidden]{display:none}
@@ -229,7 +250,7 @@ section + section::before{
 .hero-img{
   width:100%;aspect-ratio:16/9;object-fit:cover;
   margin-top:38px;border-radius:14px;
-  background:rgba(255,255,255,.35);
+  background:rgba(255,255,255,.4);
   box-shadow:0 26px 60px rgba(160,100,120,.25);
 }
 .occasion{margin:34px 0 0;font-size:14px;font-weight:500;text-transform:uppercase;letter-spacing:0.15em;color:var(--muted)}
@@ -238,16 +259,13 @@ section + section::before{
 /* ---- отсчёт ---- */
 .countdown{display:flex;flex-direction:column;gap:18px;margin-top:40px}
 .countdown div{
-  background:rgba(255,255,255,.35);
-  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
-  border:1px solid rgba(255,255,255,.55);
-  border-radius:14px;padding:26px 20px;
-  box-shadow:0 14px 34px rgba(160,100,120,.12);
+  background:rgba(255,255,255,.62);border-radius:14px;padding:26px 20px;
+  box-shadow:0 14px 34px rgba(160,100,120,.14);
 }
 .countdown span{
   display:block;font-family:var(--head);font-weight:600;
   font-size:32px;font-variant-numeric:tabular-nums;
-  background:linear-gradient(180deg,#C0687E 0%, #8E4059 100%);
+  background:linear-gradient(180deg,#E07BA0 0%, #B5457A 100%);
   -webkit-background-clip:text;background-clip:text;color:transparent;
 }
 .countdown p{margin:12px 0 0;font-size:12px;font-weight:500;text-transform:uppercase;letter-spacing:0.15em;color:var(--muted)}
@@ -270,9 +288,9 @@ section + section::before{
   font-size:13px;letter-spacing:0.15em;
   transition:.3s ease;
 }
-.btn-main{background:linear-gradient(160deg,#E788A2 0%, #C0687E 100%);color:#FFF6F2;box-shadow:0 14px 30px rgba(192,104,126,.28)}
-.btn-main:hover{filter:brightness(.94)}
-.btn-soft{background:rgba(255,255,255,.35);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.55);color:var(--ink);box-shadow:0 14px 30px rgba(160,82,110,.12)}
+.btn-main{background:radial-gradient(120% 140% at 30% 20%, #F4A6C6 0%, #E07BA0 100%);color:var(--ink);box-shadow:0 14px 30px rgba(160,82,110,.20)}
+.btn-main:hover{filter:brightness(.96)}
+.btn-soft{background:var(--accent-soft);color:var(--ink);box-shadow:0 16px 34px rgba(160,82,110,.2)}
 .btn-soft:hover{transform:translateY(-3px)}
 
 /* ---- программа / dress code / с собой ---- */
@@ -312,6 +330,9 @@ footer a:hover{color:var(--ink);border-color:var(--accent)}
 <div class="bg" aria-hidden="true"><span class="top"></span><span class="bottom"></span></div>
 
 <div id="gate">
+  <!-- прежний фон стартового экрана: аура + зерно, уходят вместе с конвертом -->
+  <div class="aura" aria-hidden="true"><i class="b1"></i><i class="b2"></i><i class="b3"></i><i class="b4"></i><i class="b5"></i><i class="b6"></i></div>
+  <div class="grain" aria-hidden="true"></div>
   <div class="stage" id="stage">
     <button id="envelope" aria-label="Открыть приглашение"><img id="envelope-img" alt=""></button>
   </div>
