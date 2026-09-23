@@ -81,22 +81,22 @@ const CONTENT = {
 
 <style>
 :root{
-  --base:#FBEFF3;         /* база под аурой */
-  --rose:#FBEFF3;
-  --rose-deep:transparent;/* секции больше не заливаются цветом — работает аура */
-  --line:#E8A5B8;
-  --dark:#A63C6B;         /* база тёмной секции Dress Code */
+  --base:#FFC3CF;         /* средний тон обоев — виден до загрузки картинок */
+  --rose:#FFC3CF;
+  --line:#E788A2;         /* цвет взят с IMG_8908 */
+  --accent:#C0687E;       /* самый насыщенный тон с IMG_8908 */
+  --accent-soft:#FFD5CA;  /* тёплый персиковый с IMG_8907 */
   --accent:#A0526E;       /* тёмно-розовый: кнопка 2GIS */
   --accent-soft:#EFC5D2;  /* светло-розовый: кнопка «Чат» */
   --ink:#1A1115;          /* заголовки */
-  --text:#3D2A30;         /* основной текст */
-  --muted:#6B4E57;        /* мелкие подписи */
+  --text:#2A1C21;         /* основной текст */
+  --muted:#4A3239;        /* мелкие подписи */
   --on-dark:#FFF5F7;      /* текст на тёмном фоне */
   --head:'Unbounded', system-ui, sans-serif;
   --body:'Manrope', system-ui, -apple-system, 'Segoe UI', sans-serif;
 }
 *{box-sizing:border-box}
-html{background:#FBEFF3}
+html{background:#FFC3CF}
 html,body{margin:0;padding:0}
 body{
   font-family:var(--body);
@@ -115,40 +115,29 @@ h1,h2{font-family:var(--head);letter-spacing:-0.01em;text-transform:uppercase;ma
 h2{font-size:26px;font-weight:600;line-height:1.25}
 
 
-/* ================== PINK AURA ================== */
-/* один слой на всю высоту документа: при скролле аура продолжается, а не повторяется */
-.aura{
+/* ============ ФОН: ОБОИ IMG_8907 / IMG_8908 ============ */
+/* один слой на всю высоту документа, обе картинки перетекают друг в друга */
+.bg{
   position:absolute;top:0;left:0;width:100%;height:100%;
   z-index:-2;overflow:hidden;background:var(--base);pointer-events:none;
 }
-.aura i{position:absolute;display:block;border-radius:50%}
-
-/* пятна разбросаны по всей высоте страницы, края полностью размыты */
-.aura .b1 {width:92vw;height:70vh;top:-14vh;  left:-30vw; background:#F4A6C6;opacity:.42;filter:blur(120px)}
-.aura .b2 {width:80vw;height:52vh;top:2%;     right:-28vw;background:#F7C8D8;opacity:.70;filter:blur(110px)}
-.aura .b3 {width:70vw;height:46vh;top:9%;     left:8vw;   background:#FFFFFF;opacity:.62;filter:blur(100px)}
-.aura .b4 {width:96vw;height:58vh;top:17%;    left:-34vw; background:#EFB3CB;opacity:.55;filter:blur(130px)}
-.aura .b5 {width:78vw;height:50vh;top:25%;    right:-26vw;background:#F4A6C6;opacity:.38;filter:blur(140px)}
-.aura .b6 {width:66vw;height:42vh;top:33%;    left:14vw;  background:#FFFFFF;opacity:.55;filter:blur(110px)}
-.aura .b7 {width:88vw;height:56vh;top:41%;    left:-28vw; background:#F7C8D8;opacity:.60;filter:blur(125px)}
-.aura .b8 {width:58vw;height:38vh;top:48%;    right:-14vw;background:#F6C9A8;opacity:.18;filter:blur(150px)}
-.aura .b9 {width:84vw;height:54vh;top:56%;    right:-30vw;background:#EFB3CB;opacity:.50;filter:blur(130px)}
-.aura .b10{width:72vw;height:46vh;top:64%;    left:-18vw; background:#FFFFFF;opacity:.58;filter:blur(105px)}
-.aura .b11{width:90vw;height:58vh;top:73%;    left:-26vw; background:#F4A6C6;opacity:.40;filter:blur(135px)}
-.aura .b12{width:76vw;height:48vh;top:82%;    right:-24vw;background:#F7C8D8;opacity:.66;filter:blur(115px)}
-.aura .b13{width:54vw;height:34vh;top:88%;    left:16vw;  background:#F6C9A8;opacity:.16;filter:blur(150px)}
-.aura .b14{width:96vw;height:60vh;bottom:-16vh;left:-32vw;background:#EFB3CB;opacity:.52;filter:blur(140px)}
-.aura .b15{width:64vw;height:40vh;bottom:2%;  right:-18vw;background:#FFFFFF;opacity:.50;filter:blur(110px)}
-
-/* зерно поверх ауры */
-.grain{
-  position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.07;
-  background-image:url("data:image/svg+xml;utf8,\
-<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'>\
-<filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/>\
-<feColorMatrix type='saturate' values='0'/></filter>\
-<rect width='220' height='220' filter='url(%23n)'/></svg>");
-  background-size:220px 220px;
+.bg span{
+  position:absolute;left:0;right:0;display:block;
+  background-repeat:no-repeat;
+  background-position:center;
+  background-size:cover;          /* пропорции не тянутся */
+}
+/* верхняя половина */
+.bg .top{
+  top:0;height:62%;
+  background-image:url("images/IMG_8907.jpg");
+}
+/* нижняя половина: заходит на верхнюю и растворяется — шва не видно */
+.bg .bottom{
+  top:38%;bottom:0;
+  background-image:url("images/IMG_8908.jpg");
+  -webkit-mask-image:linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 26%);
+          mask-image:linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 26%);
 }
 
 /* стекло */
@@ -258,7 +247,7 @@ section + section::before{
 .countdown span{
   display:block;font-family:var(--head);font-weight:600;
   font-size:32px;font-variant-numeric:tabular-nums;
-  background:linear-gradient(180deg,#E07BA0 0%, #B5457A 100%);
+  background:linear-gradient(180deg,#C0687E 0%, #8E4059 100%);
   -webkit-background-clip:text;background-clip:text;color:transparent;
 }
 .countdown p{margin:12px 0 0;font-size:12px;font-weight:500;text-transform:uppercase;letter-spacing:0.15em;color:var(--muted)}
@@ -281,8 +270,8 @@ section + section::before{
   font-size:13px;letter-spacing:0.15em;
   transition:.3s ease;
 }
-.btn-main{background:linear-gradient(160deg,#F4A6C6 0%, #E07BA0 100%);color:var(--ink);box-shadow:0 14px 30px rgba(160,82,110,.18)}
-.btn-main:hover{filter:brightness(.96)}
+.btn-main{background:linear-gradient(160deg,#E788A2 0%, #C0687E 100%);color:#FFF6F2;box-shadow:0 14px 30px rgba(192,104,126,.28)}
+.btn-main:hover{filter:brightness(.94)}
 .btn-soft{background:rgba(255,255,255,.35);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.55);color:var(--ink);box-shadow:0 14px 30px rgba(160,82,110,.12)}
 .btn-soft:hover{transform:translateY(-3px)}
 
@@ -320,8 +309,7 @@ footer a:hover{color:var(--ink);border-color:var(--accent)}
 </head>
 <body class="locked">
 
-<div class="aura" aria-hidden="true"><i class="b1"></i><i class="b2"></i><i class="b3"></i><i class="b4"></i><i class="b5"></i><i class="b6"></i><i class="b7"></i><i class="b8"></i><i class="b9"></i><i class="b10"></i><i class="b11"></i><i class="b12"></i><i class="b13"></i><i class="b14"></i><i class="b15"></i></div>
-<div class="grain" aria-hidden="true"></div>
+<div class="bg" aria-hidden="true"><span class="top"></span><span class="bottom"></span></div>
 
 <div id="gate">
   <div class="stage" id="stage">
