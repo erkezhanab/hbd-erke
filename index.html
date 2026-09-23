@@ -3,254 +3,228 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Erkezhan — приглашение</title>
+<title>Erkezhan</title>
 <meta name="description" content="Приглашение на день рождения. 4 октября 2026, 18:00–21:00.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
 
 <!-- ==========================================================
-     ВСЕ ТЕКСТЫ САЙТА — МЕНЯТЬ ТОЛЬКО ЗДЕСЬ
+     ВСЁ, ЧТО МОЖНО МЕНЯТЬ — ТОЛЬКО В ЭТОМ БЛОКЕ
+     Тексты, ссылки, дата, фотографии.
      ========================================================== -->
 <script>
 const CONTENT = {
 
-  /* Имя крупно вверху */
+  /* --- Стартовый экран: картинка конверта --- */
+  envelope: "images/envelope.jpg",
+  envelopeHint: "нажмите, чтобы открыть",
+
+  /* --- Музыка --- */
+  musicFile: "music/dancing-queen.mp3",
+  musicOn:  "Музыка: ВКЛ",
+  musicOff: "Музыка: ВЫКЛ",
+
+  /* --- Шапка --- */
   name: "Erkezhan",
-
-  /* Фото. Положи файл в папку images/ и оставь это имя (или поменяй тут) */
-  photo: "images/hero.jpg",
-
-  /* Строка под фото */
-  occasion: "день рождения",
-
-  /* Дата и время одной строкой */
+  heroPhoto: "images/hero.jpg",     /* фото 16:9 */
+  occasion: "День рождения",
   dateLine: "4 октября 2026 • 18:00–21:00",
 
-  /* Заголовок над обратным отсчётом */
+  /* --- Обратный отсчёт --- */
   countdownTitle: "До праздника осталось",
-
-  /* Дата, до которой идёт отсчёт. Формат: год-месяц-деньTчасы:минуты+05:00 (Астана) */
+  /* формат: год-месяц-деньTчасы:минуты+05:00 (Астана) */
   countdownTarget: "2026-10-04T18:00:00+05:00",
-
-  /* Текст, который появится, когда отсчёт дойдёт до нуля */
   countdownDone: "Уже начали",
-
-  /* Подписи под цифрами отсчёта */
   countdownLabels: { days: "дней", hours: "часов", minutes: "минут", seconds: "секунд" },
 
-  /* Программа вечера. Можно добавлять и убирать строки */
-  programTitle: "Программа",
-  program: [
-    { time: "18:00", text: "собираемся" },
-    { time: "19:00", text: "мастер-класс по рисованию (1.5–2 часа)" },
-    { time: "21:00", text: "расходимся" }
-  ],
-
-  /* Место проведения */
+  /* --- Место проведения --- */
   placeTitle: "Место проведения",
-  placeName: "Астана",          /* <- впиши название заведения */
-  placeAddress: "",             /* <- необязательно: улица, дом */
+  placeName: "[НАЗВАНИЕ МЕСТА]",
+  /* фото места — идут друг под другом одним коллажем.
+     Можно добавлять и убирать строки; ненайденные файлы просто не покажутся */
+  placePhotos: [
+    "images/place1.jpg",
+    "images/place2.jpg",
+    "images/place3.jpg"
+  ],
   mapButton: "Открыть в 2GIS",
   mapUrl: "https://2gis.kz/astana/geo/70000001080819861",
+  chatButton: "Чат",
+  chatUrl: "[ССЫЛКА НА ЧАТ]",
 
-  /* Dress code */
-  dressTitle: "Dress code",
-  dressText: "[заполню сама]",
+  /* --- Программа --- */
+  programTitle: "Программа",
+  program: [
+    "18:00 • Собираемся",
+    "19:00 • Мастер-класс по рисованию",
+    "21:00 • Расходимся"
+  ],
 
-  /* С собой */
+  /* --- Dress Code --- */
+  dressTitle: "Dress Code",
+  dressLines: [
+    "Total white • Любой фасон"
+  ],
+
+  /* --- С собой --- */
   bringTitle: "С собой",
-  bringText: "хорошее настроение :)",
+  bringText: "Хорошее настроение и улыбку :)",
 
-  /* Ссылка на основной сайт внизу */
+  /* --- Ссылка внизу --- */
   siteLabel: "Мой сайт",
-  siteUrl: "[ССЫЛКА]",          /* <- вставь сюда адрес своего сайта */
-
-  /* Экран с конвертом */
-  envelopeHint: "нажми, чтобы открыть",
-
-  /* Переключатель музыки */
-  musicOn: "Музыка: ВКЛ",
-  musicOff: "Музыка: ВЫКЛ",
-  musicFile: "music/dancing-queen.mp3"
+  siteUrl: "[ССЫЛКА НА САЙТ]"
 };
 </script>
-<!-- ======================= КОНЕЦ ТЕКСТОВ ======================= -->
+<!-- ===================== КОНЕЦ НАСТРОЕК ===================== -->
 
 <style>
 :root{
-  --bg:#FBEFF2;
-  --accent:#E8A5B8;
-  --ink:#3A2A2E;
-  --muted:#8C7078;
-  --line:#EBD6DC;
-  --serif:'Cormorant Garamond', Georgia, serif;
-  --sans:'Jost', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --rose:#FBEFF2;         /* основной фон */
+  --rose-deep:#F5E1E8;    /* фон секций countdown и dress code */
+  --accent:#C77E95;       /* тёмно-розовый: кнопка 2GIS */
+  --accent-soft:#EFC5D2;  /* светло-розовый: кнопка «Чат» */
+  --ink:#4A2F36;          /* заголовки */
+  --muted:#A2707F;        /* подписи */
 }
 *{box-sizing:border-box}
 html,body{margin:0;padding:0}
 body{
-  background:var(--bg);
+  font-family:'Cormorant Garamond', Georgia, serif;
+  background:var(--rose);
   color:var(--ink);
-  font-family:var(--sans);
-  font-weight:300;
-  -webkit-font-smoothing:antialiased;
+  text-align:center;
   overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
 }
 body.locked{overflow:hidden;height:100svh}
-img{max-width:100%;display:block}
+img{display:block;max-width:100%}
 
-/* ---------- конверт ---------- */
+h1,h2{font-family:'Playfair Display', Georgia, serif;letter-spacing:2px;margin:0}
+h2{font-size:34px;font-weight:600;color:var(--ink)}
+
+/* ================== КОНВЕРТ ================== */
 #gate{
   position:fixed;inset:0;z-index:50;
-  background:var(--bg);
+  background:var(--rose);
   display:flex;flex-direction:column;align-items:center;justify-content:center;
-  gap:34px;padding:24px;
+  gap:30px;padding:28px;
   transition:opacity .6s ease, visibility .6s;
 }
 #gate.opened{opacity:0;visibility:hidden;pointer-events:none}
-
-.envelope{
-  --w:min(70vw,260px);
-  width:var(--w);height:calc(var(--w)*.66);
-  position:relative;border:0;padding:0;background:none;cursor:pointer;
+#envelope{
+  border:0;padding:0;background:none;cursor:pointer;
+  width:min(76vw,340px);
   -webkit-tap-highlight-color:transparent;
-  animation:breathe 4s ease-in-out infinite;
+  animation:pulse 3s ease-in-out infinite;
+  transition:transform .55s ease, opacity .55s ease;
 }
-@keyframes breathe{0%,100%{transform:scale(1)}50%{transform:scale(1.025)}}
-.envelope:focus-visible{outline:1px solid var(--accent);outline-offset:14px}
-.env-body{position:absolute;inset:0;background:#fff;border:1px solid var(--line)}
-.env-letter{
-  position:absolute;left:10%;right:10%;top:14%;height:78%;
-  background:#fff;border:1px solid var(--line);z-index:2;
-  transition:transform .7s cubic-bezier(.22,1,.36,1);
-}
-.env-pocket{
-  position:absolute;inset:0;z-index:3;background:#FDF6F8;border:1px solid var(--line);
-  clip-path:polygon(0 26%,50% 74%,100% 26%,100% 100%,0 100%);
-}
-.env-flap{
-  position:absolute;left:0;right:0;top:0;height:50%;z-index:4;
-  background:#FDF6F8;border:1px solid var(--line);border-bottom:0;
-  clip-path:polygon(0 0,100% 0,50% 100%);
-  transform-origin:top center;
-  transition:transform .6s cubic-bezier(.6,-0.15,.4,1.2), z-index 0s .3s;
-}
-.env-line{
-  position:absolute;left:50%;top:52%;transform:translate(-50%,-50%);
-  z-index:5;width:34px;height:1px;background:var(--accent);
-  transition:opacity .3s ease;
-}
-.envelope.open{animation:none}
-.envelope.open .env-flap{transform:rotateX(180deg);z-index:1}
-.envelope.open .env-line{opacity:0}
-.envelope.open .env-letter{transform:translateY(-52%)}
-.envelope.fade{transition:opacity .45s ease .1s;opacity:0}
-
+#envelope img{width:100%;border-radius:14px;box-shadow:0 26px 60px rgba(160,100,120,.28)}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.035)}}
+#envelope:focus-visible{outline:1px solid var(--accent);outline-offset:16px;border-radius:16px}
+#envelope.go{animation:none;transform:scale(1.12);opacity:0}
 .hint{
-  font-size:.7rem;letter-spacing:.24em;text-transform:uppercase;
-  color:var(--muted);margin:0;
+  font-size:15px;letter-spacing:3px;color:var(--muted);margin:0;
+  animation:fadeHint 3s ease-in-out infinite;
 }
+@keyframes fadeHint{0%,100%{opacity:.5}50%{opacity:1}}
 
-/* ---------- музыка ---------- */
+/* ================== МУЗЫКА ================== */
 #music-toggle{
-  position:fixed;top:14px;right:14px;z-index:40;display:none;
-  font-family:var(--sans);font-weight:400;
-  font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;
-  color:var(--muted);background:rgba(255,255,255,.75);backdrop-filter:blur(8px);
-  border:1px solid var(--line);border-radius:999px;
-  padding:8px 14px;cursor:pointer;transition:color .25s ease,border-color .25s ease;
+  position:fixed;top:16px;right:16px;z-index:40;display:none;
+  font-family:'Cormorant Garamond', Georgia, serif;
+  font-size:14px;letter-spacing:2px;color:var(--ink);
+  background:rgba(255,255,255,.7);backdrop-filter:blur(8px);
+  border:1px solid var(--accent-soft);border-radius:40px;
+  padding:9px 20px;cursor:pointer;transition:.3s ease;
 }
 #music-toggle.show{display:block}
-#music-toggle.on{color:var(--ink);border-color:var(--accent)}
+#music-toggle:hover{background:var(--accent-soft)}
 
-/* ---------- страница ---------- */
-main{
-  max-width:400px;margin:0 auto;
-  padding:78px 26px 96px;
-  opacity:0;transition:opacity .7s ease;
-}
+/* ================== СТРАНИЦА ================== */
+main{opacity:0;transition:opacity .8s ease}
 main.visible{opacity:1}
 main[hidden]{display:none}
 
-section{padding:56px 0;border-bottom:1px solid var(--line);text-align:center}
-section:first-of-type{padding-top:0}
-section:last-of-type{border-bottom:0}
+section{padding:80px 22px}
+.wrap{max-width:430px;margin:0 auto}
+.tone{background:var(--rose-deep)}
 
-.reveal{opacity:0;transform:translateY(18px);transition:opacity .9s ease, transform .9s cubic-bezier(.22,1,.36,1)}
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .9s ease, transform .9s cubic-bezier(.22,1,.36,1)}
 .reveal.in{opacity:1;transform:none}
 
-h1{
-  font-family:var(--serif);font-weight:300;
-  font-size:clamp(2.9rem,13vw,3.9rem);line-height:1.05;
-  margin:0 0 30px;letter-spacing:.01em;
-}
-h2{
-  font-family:var(--sans);font-weight:400;
-  font-size:.66rem;letter-spacing:.26em;text-transform:uppercase;
-  color:var(--muted);margin:0 0 26px;
-}
-
+/* ---- шапка ---- */
+.hero{padding-top:110px;padding-bottom:80px}
+.hero h1{font-size:60px;font-weight:400;letter-spacing:3px;color:var(--ink)}
 .hero-img{
-  width:100%;aspect-ratio:4/5;object-fit:cover;
-  background:#F5E3E8;border:1px solid var(--line);
+  width:100%;aspect-ratio:16/9;object-fit:cover;
+  margin-top:38px;border-radius:14px;
+  background:var(--rose-deep);
+  box-shadow:0 26px 60px rgba(160,100,120,.25);
 }
-.occasion{
-  font-family:var(--serif);font-style:italic;font-weight:300;
-  font-size:1.5rem;color:var(--accent);margin:26px 0 0;
-}
-.date{
-  font-family:var(--sans);font-weight:300;
-  font-size:.86rem;letter-spacing:.1em;color:var(--ink);margin:12px 0 0;
-}
+.occasion{margin:34px 0 0;font-size:24px;letter-spacing:4px;color:var(--muted)}
+.date{margin:20px 0 0;font-size:18px;letter-spacing:2px;color:var(--ink)}
 
-/* отсчёт */
-.countdown{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
-.countdown div{padding:0 2px}
+/* ---- отсчёт ---- */
+.countdown{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:38px}
+.countdown div{
+  background:var(--rose);border-radius:12px;padding:20px 6px;
+  box-shadow:0 14px 34px rgba(160,100,120,.16);
+}
 .countdown span{
-  display:block;font-family:var(--serif);font-weight:300;
-  font-size:clamp(1.9rem,9vw,2.4rem);line-height:1;color:var(--ink);
-  font-variant-numeric:tabular-nums;
+  display:block;font-family:'Playfair Display',serif;font-weight:600;
+  font-size:30px;color:var(--accent);font-variant-numeric:tabular-nums;
 }
-.countdown p{
-  font-size:.56rem;letter-spacing:.16em;text-transform:uppercase;
-  color:var(--muted);margin:10px 0 0;
-}
-.countdown-done{font-family:var(--serif);font-size:1.5rem;font-style:italic;color:var(--accent);margin:0}
+.countdown p{margin:10px 0 0;font-size:12px;letter-spacing:1.5px;color:var(--muted)}
+.countdown-done{font-size:26px;letter-spacing:3px;color:var(--accent);margin:38px 0 0}
 
-/* программа */
-.program{list-style:none;margin:0;padding:0;display:grid;gap:20px;text-align:left}
-.program li{display:grid;grid-template-columns:62px 1fr;align-items:baseline;gap:14px}
-.program .t{
-  font-family:var(--serif);font-size:1.15rem;color:var(--accent);
-  font-variant-numeric:tabular-nums;
+/* ---- место ---- */
+.place-name{margin:26px 0 0;font-size:24px;letter-spacing:3px;color:var(--muted)}
+.collage{
+  margin-top:38px;border-radius:14px;overflow:hidden;
+  box-shadow:0 26px 60px rgba(160,100,120,.25);
+  font-size:0;
 }
-.program .d{font-size:.86rem;line-height:1.5;color:var(--ink)}
+.collage img{width:100%;aspect-ratio:4/3;object-fit:cover}
 
-/* место */
-.place{font-family:var(--serif);font-size:1.5rem;font-weight:300;margin:0}
-.place-addr{font-size:.78rem;color:var(--muted);margin:8px 0 0;letter-spacing:.04em}
+.buttons{margin-top:34px;display:flex;flex-direction:column;align-items:center;gap:16px}
 .btn{
-  display:inline-block;margin-top:24px;
-  font-family:var(--sans);font-weight:400;
-  font-size:.66rem;letter-spacing:.2em;text-transform:uppercase;
-  color:var(--ink);text-decoration:none;
-  border:1px solid var(--accent);border-radius:999px;
-  padding:13px 26px;transition:background-color .3s ease,color .3s ease;
+  display:block;width:100%;padding:16px 28px;
+  border-radius:40px;text-decoration:none;
+  font-family:'Cormorant Garamond', Georgia, serif;
+  font-size:17px;letter-spacing:2px;
+  transition:.3s ease;
 }
-.btn:hover{background:var(--accent);color:#fff}
+.btn-main{background:var(--accent);color:#fff;box-shadow:0 16px 34px rgba(199,126,149,.3)}
+.btn-main:hover{background:#B5677F}
+.btn-soft{background:var(--accent-soft);color:var(--ink);box-shadow:0 16px 34px rgba(199,126,149,.2)}
+.btn-soft:hover{transform:translateY(-3px)}
 
-.simple{font-family:var(--serif);font-size:1.3rem;font-weight:300;margin:0;line-height:1.5}
-.gap{margin-top:46px}
+/* ---- программа / dress code / с собой ---- */
+.lines{margin:30px 0 0;padding:0;list-style:none}
+.lines li{font-size:20px;letter-spacing:2px;color:var(--muted);margin:16px 0}
+.sub{font-size:20px;letter-spacing:2px;color:var(--muted);margin:26px 0 0}
+.gap{margin-top:64px}
 
-footer{padding:40px 0 0;text-align:center}
+/* ---- низ ---- */
+footer{padding:0 22px 80px;text-align:center}
 footer a{
-  font-size:.64rem;letter-spacing:.2em;text-transform:uppercase;
-  color:var(--muted);text-decoration:none;border-bottom:1px solid var(--line);padding-bottom:4px;
-  transition:color .3s ease,border-color .3s ease;
+  font-size:15px;letter-spacing:3px;color:var(--muted);text-decoration:none;
+  border-bottom:1px solid var(--accent-soft);padding-bottom:5px;transition:.3s ease;
 }
 footer a:hover{color:var(--ink);border-color:var(--accent)}
 
+@media (max-width:480px){
+  section{padding:64px 20px}
+  .hero{padding-top:90px}
+  .hero h1{font-size:46px}
+  h2{font-size:28px}
+  .countdown{gap:8px}
+  .countdown div{padding:16px 4px}
+  .countdown span{font-size:24px}
+  .countdown p{font-size:11px;letter-spacing:1px}
+  .lines li,.sub{font-size:18px}
+}
 @media (prefers-reduced-motion:reduce){
   *{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.2s!important}
 }
@@ -259,13 +233,7 @@ footer a:hover{color:var(--ink);border-color:var(--accent)}
 <body class="locked">
 
 <div id="gate">
-  <button class="envelope" id="envelope" aria-label="Открыть приглашение">
-    <span class="env-body"></span>
-    <span class="env-letter"></span>
-    <span class="env-pocket"></span>
-    <span class="env-flap"></span>
-    <span class="env-line"></span>
-  </button>
+  <button id="envelope" aria-label="Открыть приглашение"><img id="envelope-img" alt=""></button>
   <p class="hint" id="hint"></p>
 </div>
 
@@ -273,40 +241,53 @@ footer a:hover{color:var(--ink);border-color:var(--accent)}
 
 <main id="page" hidden>
 
-  <section class="reveal">
-    <h1 id="name"></h1>
-    <img class="hero-img" id="photo" alt="">
-    <p class="occasion" id="occasion"></p>
-    <p class="date" id="date"></p>
+  <section class="hero reveal">
+    <div class="wrap">
+      <h1 id="name"></h1>
+      <img class="hero-img" id="hero-photo" alt="">
+      <p class="occasion" id="occasion"></p>
+      <p class="date" id="date"></p>
+    </div>
   </section>
 
-  <section class="reveal">
-    <h2 id="countdown-title"></h2>
-    <div class="countdown" id="countdown">
-      <div><span id="d">00</span><p id="l-d"></p></div>
-      <div><span id="h">00</span><p id="l-h"></p></div>
-      <div><span id="m">00</span><p id="l-m"></p></div>
-      <div><span id="s">00</span><p id="l-s"></p></div>
+  <section class="tone reveal">
+    <div class="wrap">
+      <h2 id="countdown-title"></h2>
+      <div class="countdown" id="countdown">
+        <div><span id="d">00</span><p id="l-d"></p></div>
+        <div><span id="h">00</span><p id="l-h"></p></div>
+        <div><span id="m">00</span><p id="l-m"></p></div>
+        <div><span id="s">00</span><p id="l-s"></p></div>
+      </div>
     </div>
   </section>
 
   <section class="reveal">
-    <h2 id="program-title"></h2>
-    <ul class="program" id="program"></ul>
+    <div class="wrap">
+      <h2 id="place-title"></h2>
+      <p class="place-name" id="place-name"></p>
+      <div class="collage" id="collage"></div>
+      <div class="buttons">
+        <a class="btn btn-main" id="map-btn" target="_blank" rel="noopener noreferrer"></a>
+        <a class="btn btn-soft" id="chat-btn" target="_blank" rel="noopener noreferrer"></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="tone reveal">
+    <div class="wrap">
+      <h2 id="program-title"></h2>
+      <ul class="lines" id="program"></ul>
+    </div>
   </section>
 
   <section class="reveal">
-    <h2 id="place-title"></h2>
-    <p class="place" id="place-name"></p>
-    <p class="place-addr" id="place-addr"></p>
-    <a class="btn" id="map-btn" target="_blank" rel="noopener noreferrer"></a>
-  </section>
-
-  <section class="reveal">
-    <h2 id="dress-title"></h2>
-    <p class="simple" id="dress-text"></p>
-    <h2 class="gap" id="bring-title"></h2>
-    <p class="simple" id="bring-text"></p>
+    <div class="wrap">
+      <h2 id="dress-title"></h2>
+      <ul class="lines" id="dress"></ul>
+      <h2 class="gap" id="bring-title"></h2>
+      <p class="sub" id="bring-text"></p>
+    </div>
   </section>
 
   <footer class="reveal">
@@ -323,14 +304,18 @@ footer a:hover{color:var(--ink);border-color:var(--accent)}
   var C = CONTENT;
   var $ = function (id) { return document.getElementById(id); };
   var set = function (id, v) { $(id).textContent = v; };
+  var li = function (host, text) {
+    var el = document.createElement('li'); el.textContent = text; host.appendChild(el);
+  };
 
-  /* ---------- подстановка текстов ---------- */
+  /* ---------- тексты ---------- */
+  $('envelope-img').src = C.envelope;
   set('hint', C.envelopeHint);
+
   set('name', C.name);
-  $('photo').src = C.photo;
-  $('photo').alt = C.name;
-  // пока фото не положено в images/ — показываем пустой розовый прямоугольник
-  $('photo').addEventListener('error', function () { this.removeAttribute('src'); });
+  $('hero-photo').src = C.heroPhoto;
+  $('hero-photo').alt = C.name;
+  $('hero-photo').addEventListener('error', function () { this.removeAttribute('src'); });
   set('occasion', C.occasion);
   set('date', C.dateLine);
 
@@ -340,23 +325,24 @@ footer a:hover{color:var(--ink);border-color:var(--accent)}
   set('l-m', C.countdownLabels.minutes);
   set('l-s', C.countdownLabels.seconds);
 
-  set('program-title', C.programTitle);
-  var list = $('program');
-  C.program.forEach(function (row) {
-    var li = document.createElement('li');
-    var t = document.createElement('span'); t.className = 't'; t.textContent = row.time;
-    var d = document.createElement('span'); d.className = 'd'; d.textContent = row.text;
-    li.appendChild(t); li.appendChild(d); list.appendChild(li);
-  });
-
   set('place-title', C.placeTitle);
   set('place-name', C.placeName);
-  if (C.placeAddress) { set('place-addr', C.placeAddress); } else { $('place-addr').remove(); }
-  set('map-btn', C.mapButton);
-  $('map-btn').href = C.mapUrl;
+  var collage = $('collage');
+  C.placePhotos.forEach(function (src) {
+    var img = document.createElement('img');
+    img.alt = C.placeName;
+    img.addEventListener('error', function () { this.remove(); });
+    img.src = src;
+    collage.appendChild(img);
+  });
+  set('map-btn', C.mapButton);  $('map-btn').href = C.mapUrl;
+  set('chat-btn', C.chatButton); $('chat-btn').href = C.chatUrl;
+
+  set('program-title', C.programTitle);
+  C.program.forEach(function (row) { li($('program'), row); });
 
   set('dress-title', C.dressTitle);
-  set('dress-text', C.dressText);
+  C.dressLines.forEach(function (row) { li($('dress'), row); });
   set('bring-title', C.bringTitle);
   set('bring-text', C.bringText);
 
@@ -366,18 +352,17 @@ footer a:hover{color:var(--ink);border-color:var(--accent)}
   var audio = $('bg-music');
   audio.src = C.musicFile;
 
-  /* ---------- обратный отсчёт ---------- */
+  /* ---------- отсчёт ---------- */
   var target = new Date(C.countdownTarget).getTime();
   var pad = function (n) { return n < 10 ? '0' + n : '' + n; };
   var timer = setInterval(tick, 1000);
-
   function tick() {
     var left = target - Date.now();
     if (left <= 0) {
       clearInterval(timer);
       var box = $('countdown');
       box.className = '';
-      box.innerHTML = '';
+      box.textContent = '';
       var p = document.createElement('p');
       p.className = 'countdown-done';
       p.textContent = C.countdownDone;
@@ -403,7 +388,7 @@ footer a:hover{color:var(--ink);border-color:var(--accent)}
       entries.forEach(function (e) {
         if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
       });
-    }, { threshold: 0.1, rootMargin: '0px 0px -8% 0px' });
+    }, { threshold: 0.08, rootMargin: '0px 0px -8% 0px' });
     Array.prototype.forEach.call(items, function (el) { io.observe(el); });
   }
 
@@ -411,11 +396,9 @@ footer a:hover{color:var(--ink);border-color:var(--accent)}
   var toggle = $('music-toggle');
   function ui(on) {
     toggle.textContent = on ? C.musicOn : C.musicOff;
-    toggle.classList.toggle('on', on);
     toggle.setAttribute('aria-pressed', on ? 'true' : 'false');
   }
   ui(false);
-
   function play() {
     var p = audio.play();
     if (p && p.then) { p.then(function () { ui(true); }).catch(function () { ui(false); }); }
@@ -423,20 +406,18 @@ footer a:hover{color:var(--ink);border-color:var(--accent)}
   toggle.addEventListener('click', function () {
     if (audio.paused) { play(); } else { audio.pause(); ui(false); }
   });
-  audio.addEventListener('play', function () { ui(true); });
+  audio.addEventListener('play',  function () { ui(true); });
   audio.addEventListener('pause', function () { ui(false); });
 
-  /* ---------- открытие конверта ---------- */
+  /* ---------- открытие ---------- */
   var envelope = $('envelope'), gate = $('gate'), page = $('page'), opened = false;
   envelope.addEventListener('click', function () {
     if (opened) return;
     opened = true;
 
-    play();                                  // строго внутри обработчика клика
-    envelope.classList.add('open');
+    play();                          /* запуск строго внутри клика */
+    envelope.classList.add('go');
     toggle.classList.add('show');
-
-    setTimeout(function () { envelope.classList.add('fade'); }, 620);
 
     setTimeout(function () {
       gate.classList.add('opened');
@@ -445,9 +426,9 @@ footer a:hover{color:var(--ink);border-color:var(--accent)}
       requestAnimationFrame(function () {
         requestAnimationFrame(function () { page.classList.add('visible'); reveal(); });
       });
-    }, 900);
+    }, 450);
 
-    setTimeout(function () { gate.remove(); }, 1700);
+    setTimeout(function () { gate.remove(); }, 1200);
   });
 })();
 </script>
