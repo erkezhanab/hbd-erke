@@ -8,7 +8,7 @@
 <meta name="description" content="Приглашение на день рождения. 4 октября 2026, 18:00–21:00.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@600;700&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@1&family=Unbounded:wght@600;700&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
 
 <!-- ==========================================================
      ВСЁ, ЧТО МОЖНО МЕНЯТЬ — ТОЛЬКО В ЭТОМ БЛОКЕ
@@ -81,8 +81,11 @@ const CONTENT = {
 
 <style>
 :root{
-  --rose:#FBEFF2;         /* основной фон */
-  --rose-deep:#F5E1E8;    /* фон секций countdown и dress code */
+  --rose:#FFF5F7;         /* верх фонового градиента */
+  --rose-bottom:#FBE3EA;  /* низ фонового градиента */
+  --rose-deep:rgba(232,165,184,.13);  /* лёгкое затемнение секций */
+  --grad-btn:linear-gradient(160deg,#E8A5B8 0%, #D98BA3 100%);
+  --line:#E8A5B8;
   --accent:#A0526E;       /* тёмно-розовый: кнопка 2GIS */
   --accent-soft:#EFC5D2;  /* светло-розовый: кнопка «Чат» */
   --ink:#1A1115;          /* заголовки */
@@ -93,11 +96,13 @@ const CONTENT = {
   --body:'Manrope', system-ui, -apple-system, 'Segoe UI', sans-serif;
 }
 *{box-sizing:border-box}
-html,body{margin:0;padding:0;background:#FBEFF2}   /* чтобы нигде не проступал белый */
+html{background:#FFF5F7}
+html,body{margin:0;padding:0}
 body{
   font-family:var(--body);
   font-weight:400;
-  background:var(--rose);
+  background:linear-gradient(180deg,var(--rose) 0%, var(--rose-bottom) 100%);
+  background-attachment:fixed;
   color:var(--text);
   text-align:center;
   overflow-x:hidden;
@@ -112,7 +117,7 @@ h2{font-size:26px;font-weight:600;line-height:1.25}
 /* ================== КОНВЕРТ ================== */
 #gate{
   position:fixed;inset:0;z-index:50;
-  background:var(--rose);   /* только фон страницы, ничего за конвертом */
+  background:linear-gradient(180deg,var(--rose) 0%, var(--rose-bottom) 100%);
   display:flex;flex-direction:column;align-items:center;justify-content:center;
   gap:30px;padding:28px;
   transition:opacity .6s ease, visibility .6s;
@@ -167,7 +172,12 @@ main{opacity:0;transition:opacity .8s ease}
 main.visible{opacity:1}
 main[hidden]{display:none}
 
-section{padding:80px 22px}
+section{padding:80px 22px;position:relative}
+section + section::before{
+  content:"";position:absolute;top:0;left:50%;transform:translateX(-50%);
+  width:min(430px,calc(100% - 44px));height:1px;
+  background:linear-gradient(90deg,transparent 0%, var(--line) 50%, transparent 100%);
+}
 .wrap{max-width:430px;margin:0 auto}
 .tone{background:var(--rose-deep)}
 
@@ -176,7 +186,12 @@ section{padding:80px 22px}
 
 /* ---- шапка ---- */
 .hero{padding-top:110px;padding-bottom:80px}
-.hero h1{font-size:40px;font-weight:700;line-height:1.1;color:var(--ink)}
+.hero h1{
+  font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-weight:400;
+  font-size:74px;line-height:1.05;letter-spacing:0;text-transform:none;
+  background:linear-gradient(120deg,#B5657F 0%, #1A1115 62%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
 .hero-img{
   width:100%;aspect-ratio:16/9;object-fit:cover;
   margin-top:38px;border-radius:14px;
@@ -189,12 +204,14 @@ section{padding:80px 22px}
 /* ---- отсчёт ---- */
 .countdown{display:flex;flex-direction:column;gap:18px;margin-top:40px}
 .countdown div{
-  background:var(--rose);border-radius:14px;padding:26px 20px;
+  background:rgba(255,255,255,.5);border-radius:14px;padding:26px 20px;
   box-shadow:0 16px 38px rgba(160,100,120,.16);
 }
 .countdown span{
   display:block;font-family:var(--head);font-weight:600;
-  font-size:32px;color:var(--ink);font-variant-numeric:tabular-nums;
+  font-size:32px;font-variant-numeric:tabular-nums;
+  background:linear-gradient(180deg,#D98BA3 0%, #B5657F 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
 }
 .countdown p{margin:12px 0 0;font-size:12px;font-weight:500;text-transform:uppercase;letter-spacing:0.15em;color:var(--muted)}
 .countdown-done{font-family:var(--head);font-weight:600;font-size:22px;text-transform:uppercase;letter-spacing:-0.01em;color:var(--ink);margin:38px 0 0}
@@ -216,8 +233,8 @@ section{padding:80px 22px}
   font-size:13px;letter-spacing:0.15em;
   transition:.3s ease;
 }
-.btn-main{background:var(--accent);color:var(--on-dark);box-shadow:0 16px 34px rgba(160,82,110,.28)}
-.btn-main:hover{background:#8C4560}
+.btn-main{background:var(--grad-btn);color:var(--ink);box-shadow:0 14px 30px rgba(160,82,110,.22)}
+.btn-main:hover{filter:brightness(.96)}
 .btn-soft{background:var(--accent-soft);color:var(--ink);box-shadow:0 16px 34px rgba(160,82,110,.2)}
 .btn-soft:hover{transform:translateY(-3px)}
 
@@ -239,7 +256,7 @@ footer a:hover{color:var(--ink);border-color:var(--accent)}
 @media (max-width:480px){
   section{padding:64px 20px}
   .hero{padding-top:90px}
-  .hero h1{font-size:32px}
+  .hero h1{font-size:58px}
   h2{font-size:22px}
   .countdown{gap:14px}
   .countdown div{padding:22px 16px}
