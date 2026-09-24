@@ -52,7 +52,7 @@ const CONTENT = {
   mapButton: "Открыть в 2GIS",
   mapUrl: "https://2gis.kz/astana/geo/70000001080819861",
   chatButton: "Чат",
-  chatUrl: "[https://chat.whatsapp.com/BZogoOCPTiJ3qVbe5gM9W2?ilr=4&mlu=4&p=i&s=cl]",
+  chatUrl: "https://chat.whatsapp.com/BZogoOCPTiJ3qVbe5gM9W2",
 
   /* --- Программа --- */
   programTitle: "Программа",
@@ -438,7 +438,8 @@ footer a:hover{color:var(--ink);border-color:var(--accent)}
     collage.appendChild(img);
   });
   set('map-btn', C.mapButton);  $('map-btn').href = C.mapUrl;
-  set('chat-btn', C.chatButton); $('chat-btn').href = C.chatUrl;
+  set('chat-btn', C.chatButton);
+  if (C.chatUrl) { $('chat-btn').href = C.chatUrl; } else { $('chat-btn').style.display = 'none'; }
 
   set('program-title', C.programTitle);
   C.program.forEach(function (row) { li($('program'), row); });
